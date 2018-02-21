@@ -5,3 +5,9 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+['kusom', 'tu', 'pu'].each do |clg|
+  Database.find_or_create_by(name: clg)
+end
+
+DatabaseManipulator.perform_migration

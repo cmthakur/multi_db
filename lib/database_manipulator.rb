@@ -1,9 +1,12 @@
 module DatabaseManipulator
-  def self.perform_migration
-    ActiveRecord::Base.establish_connection default_config
-    databases = Database.where({}).pluck(:name)
-    ActiveRecord::Base.connection.disconnect!
+  def self.perform_migration(databases=nil)
+    if databases.blank?
+      ActiveRecord::Base.establish_connection default_config
+      databases = Database.where({}).pluck(:name)
+      ActiveRecord::Base.connection.disconnect!
+    end
 
+    databases = Array.wrap(databases)
     create_database(databases)
     migrate(databases)
   end
